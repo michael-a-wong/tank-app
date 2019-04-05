@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import App from "./App"; 
+import Animation from "./Canvas"; 
  
 class Home extends Component {
   render() {
@@ -15,7 +16,8 @@ class Home extends Component {
         dis parturient montes, nascetur ridiculus mus.</p>
  
         <p>Duis a turpis sed lacus dapibus elementum sed eu lectus.</p>
-        <App></App>
+        {/* <App></App> */}
+        <Animation></Animation>
       </div>
       
     );
