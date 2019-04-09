@@ -1,4 +1,9 @@
-import * as Settings from "./Settings"; 
+// import * as Settings from "./Settings"; 
+
+//import Settings from "./Settings"; 
+
+const Settings = require("./Settings"); 
+
 
 function getLengthForDeg(phi) {
     phi = ((phi + 45) % 90 - 45) / 180 * Math.PI;
@@ -16,17 +21,7 @@ class Tank {
 
     }
 
-    copy(){
-        //console.log("run copy"); 
-        let newTank = new Tank; 
-        newTank.x = this.x;
-        newTank.y = this.y;
-        newTank.direction = this.direction;
-        newTank.shots = this.shots;
-        newTank.isReloading = this.isReloading;
-        newTank.health = this.health;
-        return newTank; 
-    }; 
+    
 
     update(object) {
         this.x = object.x;
@@ -70,4 +65,6 @@ class Tank {
     }
 }
 
-export default Tank; 
+
+module.exports = Tank; 
+

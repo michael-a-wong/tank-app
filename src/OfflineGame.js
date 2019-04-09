@@ -6,17 +6,14 @@ import Keys from "./Keys";
 // const Keys = require("./Keys"); 
 import Tank from "./Client-Tank";
 // const Tank = require("./Tank"); 
-
-import * as Settings from "./Client-Settings"; 
+// import * as Settings from "./Settings"; 
 
 import {socket, Controller} from "./SocketHandler"; 
 // const openSocket = require('socket.io-client');
 // const socket = openSocket('http://localhost:3000');
 
 
-// const Settings = require("./Settings").default; 
-//const Settings = require("./Settings"); 
-// import Settings from "./Client-Settings"; 
+const Settings = require("./Settings"); 
 
 // var tankWidth = 25;
 // var tankHeight = 10;
@@ -38,56 +35,56 @@ var flash = 1;
 var tankReloadRate = 100; // this is in miliseconds; 
 
 
-// function rotateTank(tank, degree) {
-//     tank.direction = (tank.direction + degree) % (2 * Math.PI);
-// }
+function rotateTank(tank, degree) {
+    tank.direction = (tank.direction + degree) % (2 * Math.PI);
+}
 
-// function moveTank(tank, distance) {
-//     tank.x += distance * Math.cos(tank.direction);
-//     tank.y += distance * Math.sin(tank.direction);
+function moveTank(tank, distance) {
+    tank.x += distance * Math.cos(tank.direction);
+    tank.y += distance * Math.sin(tank.direction);
 
-//     if (tank.x < 0) {
-//         tank.x = 0;
-//     }
-//     if (tank.y < 0 + (Settings.tankHeight / 2)) {
-//         tank.y = 0 + (Settings.tankHeight / 2);
-//     }
-//     if (tank.x > width - (Settings.tankWidth / 2)) {
-//         tank.x = width - (Settings.tankWidth / 2);
-//     }
-//     if (tank.y > height - (Settings.tankHeight / 2)) {
-//         tank.y = height - (Settings.tankHeight / 2);
-//     }
-// }
+    if (tank.x < 0) {
+        tank.x = 0;
+    }
+    if (tank.y < 0 + (Settings.tankHeight / 2)) {
+        tank.y = 0 + (Settings.tankHeight / 2);
+    }
+    if (tank.x > width - (Settings.tankWidth / 2)) {
+        tank.x = width - (Settings.tankWidth / 2);
+    }
+    if (tank.y > height - (Settings.tankHeight / 2)) {
+        tank.y = height - (Settings.tankHeight / 2);
+    }
+}
 
 
 
-// function handleKeys(tank, keys) {
-//     // The order of the Keys are WKey, SKey, EKey, AKey, DKey, SpaceKey
-//     //                            0      1     2     3     4       5
+function handleKeys(tank, keys) {
+    // The order of the Keys are WKey, SKey, EKey, AKey, DKey, SpaceKey
+    //                            0      1     2     3     4       5
 
-//     if (keys[0]) {
-//         moveTank(tank, Settings.tankSpeed);
-//     }
-//     if (keys[1]) {
-//         moveTank(tank, -1 * Settings.tankSpeed)
-//     }
-//     if (keys[2] && flash > 0) {
-//         moveTank(tank, 40);
-//         flash--;
-//     }
-//     if (keys[3]) {
-//         rotateTank(tank, -1 * Settings.tankRotation)
-//     }
-//     if (keys[4]) {
-//         rotateTank(tank, Settings.tankRotation)
-//     }
-//     if (keys[5] && !tank.isReloading) {
-//         //tank.shots.push(new Shot(tank));
-//         //tank.isReloading = true;
-//         //setTimeout(reload, tankReloadRate, tank);
-//     }
-// }
+    if (keys[0]) {
+        moveTank(tank, Settings.tankSpeed);
+    }
+    if (keys[1]) {
+        moveTank(tank, -1 * Settings.tankSpeed)
+    }
+    if (keys[2] && flash > 0) {
+        moveTank(tank, 40);
+        flash--;
+    }
+    if (keys[3]) {
+        rotateTank(tank, -1 * Settings.tankRotation)
+    }
+    if (keys[4]) {
+        rotateTank(tank, Settings.tankRotation)
+    }
+    if (keys[5] && !tank.isReloading) {
+        //tank.shots.push(new Shot(tank));
+        //tank.isReloading = true;
+        //setTimeout(reload, tankReloadRate, tank);
+    }
+}
 
 
 
@@ -117,7 +114,7 @@ class Animation extends React.Component {
        this.setState(prevState => {
 
             let newTank = prevState.tank.copy(); 
-            //handleKeys(newTank, this.keys.input);  
+            handleKeys(newTank, this.keys.input);  
 
             return {tank: newTank}; 
             
@@ -185,8 +182,7 @@ class Canvas extends React.Component {
     componentDidUpdate() {
         
         const { tank } = this.props;
-        console.log("test tank"); 
-        console.log(tank); 
+        //console.log(tank); 
         width = this.ctx.canvas.width;
         height = this.ctx.canvas.height;
 
@@ -197,9 +193,6 @@ class Canvas extends React.Component {
 
 
             this.ctx.beginPath();
-
-            console.log("Settings!!")
-            console.log(Settings); 
 
             var xTranslation = tank.x + Settings.tankWidth / 2;
             var yTranslation = tank.y + Settings.tankHeight / 2;
@@ -233,7 +226,7 @@ class Canvas extends React.Component {
             //     }
             // }
         }
-   }
+    }
 
     render() {
         return <PureCanvas contextRef={this.saveContext}></PureCanvas>;

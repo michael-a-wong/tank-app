@@ -14,15 +14,15 @@ const playerInitPosition =
     [100, 100], // Player 2's X, Y
 ]
 */
-module.exports = {
-    tankWidth : tankWidth, 
-    tankHeight : tankHeight, 
-    tankSpeed: tankSpeed, 
-    tankRotation : tankRotation, 
-    tankHealth : tankHealth, 
-    shotSpeed: shotSpeed, 
-    shotRadius: shotRadius, 
-    canvasWidth: canvasWidth, 
-    canvasHeight: canvasHeight,
+export {
+    tankWidth, 
+    tankHeight, 
+    tankSpeed, 
+    tankRotation, 
+    tankHealth, 
+    shotSpeed, 
+    shotRadius, 
+    canvasWidth, 
+    canvasHeight, 
     //playerInitPosition, playerInitPosition
-}
+};
